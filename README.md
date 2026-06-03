@@ -1,0 +1,7 @@
+- fiz em go pq os materiais e exercícios de aula estavam nessa linguagem, então pra mim a associação dos exemplos com o exercício da ponderada ficariam mais práticas se desenvolvesse na mesma linguagem. Acho importante ressaltar que, por mais que a associação da arquitetura e etc tenha ficado mais fácil, a sintaxe me deu um cadin de trabalho, e em alguns momentos precisei gastar um tempinho a mais pesquisando sobre.
+
+- criei, primeiro, os tipos que representariam enums, e dps criei a struct figurinha, assim como o create request e o update request
+
+- comecei a pesquisar sobre o banco pq n sabia como usar sqlite com go.  depois de encontrar a doc, demorei um pouco pra conseguir associar as coisas, mas deu certo e consegui implementar certinho (eu acho, nesse momento ainda n rodei pra testar rs)
+
+- feito o banco, passei pra próxima camada, o repository. Eu ainda tava com dificuldade de entender o que ia em cada camada dps do domain, então revisitei o material de aula pra conseguir completar minhas sinapses e entendi que o repository é a camada que isola a comunicação com o db. Entendida a função dessa camada, e me inspirando no exercício que tinha sido disponibilizado antes para prática, construi o repositoty da solucação, tenatndo ao máximo descrever a responsabilidade de cada função mentalmente sem usar um "e".
