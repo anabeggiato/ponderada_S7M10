@@ -1,0 +1,224 @@
+basePath: /
+definitions:
+  domain.CreateFigurinhaRequest:
+    properties:
+      number:
+        type: string
+      position:
+        $ref: '#/definitions/domain.PosicaoJogadorFigurinha'
+      type:
+        $ref: '#/definitions/domain.TipoFigurinha'
+    required:
+    - number
+    - position
+    - type
+    type: object
+  domain.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  domain.Figurinha:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      number:
+        type: string
+      position:
+        $ref: '#/definitions/domain.PosicaoJogadorFigurinha'
+      type:
+        $ref: '#/definitions/domain.TipoFigurinha'
+      updated_at:
+        type: string
+    type: object
+  domain.PosicaoJogadorFigurinha:
+    enum:
+    - goleiro
+    - zagueiro
+    - meio-campista
+    - atacante
+    type: string
+    x-enum-varnames:
+    - PosicaoGoleiro
+    - PosicaoZagueiro
+    - PosicaoMeioCampo
+    - PosicaoAtacante
+  domain.TipoFigurinha:
+    enum:
+    - comum
+    - brilhante
+    - legend_ouro
+    - legend_bronze
+    type: string
+    x-enum-varnames:
+    - TipoComum
+    - TipoBrilhante
+    - TipoLegendOuro
+    - TipoLegendBronze
+  domain.UpdateFigurinhaRequest:
+    properties:
+      number:
+        type: string
+      position:
+        $ref: '#/definitions/domain.PosicaoJogadorFigurinha'
+      type:
+        $ref: '#/definitions/domain.TipoFigurinha'
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API simples para gerenciar figurinhas.
+  title: API de Figurinhas
+  version: "1.0"
+paths:
+  /figurinhas:
+    get:
+      description: Retorna todas as figurinhas cadastradas.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Figurinha'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Listar figurinhas
+      tags:
+      - figurinhas
+    post:
+      consumes:
+      - application/json
+      description: Cria uma nova figurinha a partir das informações enviadas no corpo
+        da requisição.
+      parameters:
+      - description: Dados da figurinha
+        in: body
+        name: figurinha
+        required: true
+        schema:
+          $ref: '#/definitions/domain.CreateFigurinhaRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Figurinha'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Criar figurinha
+      tags:
+      - figurinhas
+  /figurinhas/{id}:
+    delete:
+      description: Remove uma figurinha a partir do ID enviado na rota.
+      parameters:
+      - description: ID da figurinha
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: "null"
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Deletar figurinha
+      tags:
+      - figurinhas
+    get:
+      description: Retorna uma figurinha específica a partir do ID enviado na rota.
+      parameters:
+      - description: ID da figurinha
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Figurinha'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Buscar figurinha por ID
+      tags:
+      - figurinhas
+    put:
+      consumes:
+      - application/json
+      description: Atualiza os campos enviados de uma figurinha já cadastrada.
+      parameters:
+      - description: ID da figurinha
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Dados para atualizar
+        in: body
+        name: figurinha
+        required: true
+        schema:
+          $ref: '#/definitions/domain.UpdateFigurinhaRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Figurinha'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Atualizar figurinha
+      tags:
+      - figurinhas
+swagger: "2.0"
